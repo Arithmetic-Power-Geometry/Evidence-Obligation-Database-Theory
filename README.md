@@ -146,7 +146,7 @@ python benchmarks/exhaustive_binary_small.py
 python benchmarks/synthetic_suite.py --seeds 100
 ```
 
-GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, and reproducibility artifact generation. The v1.0 pre-freeze tree passed the reproducibility workflow before this README-only release cleanup.
+GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, and reproducibility artifact generation. The final v1.0 README commit passed the reproducibility workflow (run #55), including regression tests, exhaustive finite audit, the 100-seed synthetic suite, summary generation, and artifact upload.
 
 ## Repository map
 
