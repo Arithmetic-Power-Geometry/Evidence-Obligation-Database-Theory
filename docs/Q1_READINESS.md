@@ -47,9 +47,9 @@ The real-data experiments are empirical analogues of evidence acquisition. They 
 - [x] Package metadata prepared for 1.0.0.
 - [x] Obsolete composition scaffold retired in favor of exact witness.
 - [x] Hypergraph/composition APIs exported.
-- [ ] Inspect a clean CI run against the final v1.0 tree.
-- [ ] Generate final manuscript figures/tables directly from frozen artifacts.
-- [ ] Perform final literature/prior-art audit immediately before manuscript submission.
+- [x] Inspect a clean CI run against the final v1.0 tree (workflow run #55: success).
+- [x] Generate final figures/tables directly from frozen workflow artifacts.
+- [x] Perform final literature/prior-art audit immediately before manuscript submission; claims remain deliberately narrower than sensing, access-method, provenance, and active-acquisition prior art.
 
 ## Current assessment
 
