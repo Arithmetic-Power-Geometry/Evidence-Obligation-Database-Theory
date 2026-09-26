@@ -1,0 +1,11 @@
+cff-version: 1.2.0
+message: "If you use this software or theory, please cite this repository."
+title: "Evidence-Obligation Database Theory"
+type: software
+authors:
+  - family-names: "Akhtar"
+    given-names: "Mohammad Amir Khusru"
+year: 2026
+version: "0.1.0"
+license: "Apache-2.0"
+repository-code: "https://github.com/Arithmetic-Power-Geometry/Evidence-Obligation-Database-Theory"
