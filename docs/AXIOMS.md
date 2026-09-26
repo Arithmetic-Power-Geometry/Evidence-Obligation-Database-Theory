@@ -1,4 +1,4 @@
-# EOD Axioms v0.2
+# EOD Axioms
 
 These axioms define the finite deterministic core of Evidence-Obligation Database Theory.
 
