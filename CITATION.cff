@@ -1,11 +1,27 @@
 cff-version: 1.2.0
-message: "If you use this software or theory, please cite this repository."
-title: "Evidence-Obligation Database Theory"
+message: "If you use this work, please cite the archival research release below."
+title: "Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query"
 type: software
+version: "V1"
+date-released: 2026-09-26
 authors:
   - family-names: "Akhtar"
     given-names: "Mohammad Amir Khusru"
-year: 2026
-version: "1.0.0"
-license: "Apache-2.0"
+    orcid: "https://orcid.org/0000-0002-3432-4199"
+    affiliation: "Usha Martin University, Ranchi, India"
 repository-code: "https://github.com/Arithmetic-Power-Geometry/Evidence-Obligation-Database-Theory"
+doi: "10.5281/zenodo.22980041"
+url: "https://doi.org/10.5281/zenodo.22980041"
+license: "Apache-2.0"
+preferred-citation:
+  type: generic
+  title: "Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query"
+  authors:
+    - family-names: "Akhtar"
+      given-names: "Mohammad Amir Khusru"
+      orcid: "https://orcid.org/0000-0002-3432-4199"
+  year: 2026
+  version: "V1"
+  doi: "10.5281/zenodo.22980041"
+  publisher:
+    name: "Zenodo"
