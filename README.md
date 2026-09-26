@@ -223,6 +223,52 @@ The included benchmark is intentionally **not a speed benchmark**. It puts the s
 
 Its purpose is to make the proposed benefit concrete: EOD does not merely say that an answer is currently uncertain; it determines whether the uncertainty is **resolvable**, identifies a minimum evidence obligation when it is, and provides a witness when it is not.
 
+## First formal separation result
+
+EOD now has an executable **Capability-Separation Theorem**.
+
+There exist two finite databases \(\mathbb D_+\) and \(\mathbb D_-\) with exactly the same current version space and exactly the same query values on that space, yet
+
+\[
+\operatorname{RS}(\mathbb D_+,q)
+=
+\mathrm{ACQUIRABLY\_RESOLVABLE}
+\]
+
+while
+
+\[
+\operatorname{RS}(\mathbb D_-,q)
+=
+\mathrm{UNRESOLVABLE}.
+\]
+
+The difference is solely their admissible evidence capability. Therefore:
+
+\[
+\boxed{\text{same current knowledge}\;\not\Rightarrow\;\text{same future answerability}}
+\]
+
+This proves that future answerability is not determined by the current query view alone. It does **not** claim that conventional DBMS software cannot encode evidence metadata.
+
+See [docs/SEPARATION_THEOREM.md](docs/SEPARATION_THEOREM.md) and run:
+
+```bash
+python experiments/capability_separation.py
+```
+
+The seven finite-core axioms are in [docs/AXIOMS.md](docs/AXIOMS.md).
+
+## Complexity boundary
+
+For an explicit finite EOD instance, the non-adaptive minimum-evidence problem can be represented as weighted covering over the query-obstruction pairs. The exact engine is therefore intentionally a small-instance semantic oracle rather than a production optimizer.
+
+See [docs/COMPLEXITY.md](docs/COMPLEXITY.md) and:
+
+```bash
+python benchmarks/scaling_exact.py
+```
+
 ## Research questions now made executable
 
 The repository turns the proposal into falsifiable questions:
@@ -236,7 +282,7 @@ The repository turns the proposal into falsifiable questions:
 
 ## Current status
 
-**v0.1 — formal concept + exact finite reference engine + semantic benchmark.**
+**v0.2 — axiomatized finite theory + capability-separation theorem + exact reference engine + semantic and complexity benchmarks.**
 
 This repository establishes the concept and makes it executable. It does **not** yet claim historical proof that EOD is a new canonical database model; that requires a fuller literature review, formal separation results, and peer review.
 
