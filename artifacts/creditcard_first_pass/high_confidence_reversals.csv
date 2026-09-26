@@ -1,0 +1,5 @@
+stage,high_conf_n,high_conf_rate,later_reversed_n,later_reversed_rate
+B0,1,0.00001755,0,0.0
+B1,8409,0.147625,59,0.007016
+B2,9392,0.164882,42,0.004472
+B3,12045,0.211457,6,0.000498
