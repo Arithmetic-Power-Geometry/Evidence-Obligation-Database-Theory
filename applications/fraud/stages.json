@@ -1,0 +1,23 @@
+{
+  "workload": "IEEE-CIS staged fraud evidence",
+  "target": "isFraud",
+  "stages": [
+    {
+      "name": "core",
+      "cost": 0,
+      "description": "Initially available transaction identifiers, amount, product/card/address/time/email fields."
+    },
+    {
+      "name": "context",
+      "cost": 1,
+      "description": "Additional transaction-side C/D/M context variables."
+    },
+    {
+      "name": "identity",
+      "cost": 3,
+      "description": "Identity/device variables joined by TransactionID when available.",
+      "availability_column": "identity_available"
+    }
+  ],
+  "note": "Costs are experimental units, not monetary estimates. Sensitivity analysis is required."
+}
