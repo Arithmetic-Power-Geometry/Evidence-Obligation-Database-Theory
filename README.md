@@ -1,388 +1,201 @@
 # Evidence-Obligation Database Theory (EOD)
 
-> A proposed database model in which a database state is defined not only by what it currently knows, but also by what it can still learn.
+> A finite database semantics in which state records not only current evidence, but also the evidence that can still be acquired to resolve a query.
 
+**Version:** 1.0.0  
 **Author:** Mohammad Amir Khusru Akhtar  
 **Copyright © 2026 Mohammad Amir Khusru Akhtar**  
 **License:** Apache License 2.0
 
-## Core idea
-
-Conventional database queries primarily map a stored database state to an answer. In incomplete or uncertain settings they may instead expose certain answers, possible answers, nulls, confidence, provenance, or missing-answer explanations.
-
-EOD introduces a different native query result:
-
-```text
-QUERY
-  -> ANSWER CERTIFICATE
-  -> EVIDENCE OBLIGATION
-  -> IMPOSSIBILITY CERTIFICATE
-```
-
-The central proposal is:
-
-> **Future evidence-generating capability is part of database state.**
-
-Two systems may contain identical current facts yet be different EOD databases if they have different abilities to acquire evidence that resolves future queries.
-
-## Formal model
+## Core semantics
 
 A finite EOD database is
 
-\[
-\mathbb D=(W,H,E,\Omega,C,\Gamma),
-\]
+[
+mathbb D=(W,H,E,Omega,C,Gamma),
+]
 
-where:
+with admissible worlds (W), acquired evidence (H), evidence operations (E), deterministic outcomes (Omega), costs (C), and admissibility constraints (Gamma).
 
-- \(W\): admissible worlds;
-- \(H\): currently acquired evidence;
-- \(E\): evidence-producing operations;
-- \(\Omega_e(w)\): outcome of operation \(e\) in world \(w\);
-- \(C(e)\): acquisition cost;
-- \(\Gamma\): admissibility constraints.
+For query (q:W	o Y), current evidence induces version space (V_H). EOD distinguishes three typed outcomes:
 
-For a query \(q:W\to Y\), current evidence induces the version space
+```text
+RESOLVED              -> answer certificate
+ACQUIRABLY_RESOLVABLE -> evidence obligation / policy
+UNRESOLVABLE          -> impossibility certificate
+```
 
-\[
-V_H=\{w\in W:w\text{ is consistent with }H\}.
-\]
+The query-relative obstruction is
 
-The query is resolved exactly when all worlds in \(V_H\) agree on its answer.
+[
+mathcal O_q(H)={{u,v}subseteq V_H:q(u)
+eq q(v)}.
+]
 
-## Resolution obstruction
-
-EOD keeps only ambiguity that matters to the requested query:
-
-\[
-\mathcal O_q(H)
-=
-\{\{u,v\}\subseteq V_H:q(u)\neq q(v)\}.
-\]
-
-For evidence operation \(e\),
-
-\[
-S_e
-=
-\{\{u,v\}:\Omega_e(u)\neq\Omega_e(v)\}.
-\]
-
-A set of future evidence operations resolves the query if it separates every query-disagreeing pair.
+An evidence operation separates a pair when its outcomes differ in the two worlds. A fixed obligation resolves the query exactly when it separates every obstruction pair.
 
 ## Minimum Evidence Obligation
 
-For additive acquisition cost,
+For additive costs,
 
-\[
-\operatorname{MEO}(q,H)
-=
-\arg\min_{X\subseteq E_\Gamma}
-\sum_{e\in X}C(e)
-\]
+[
+operatorname{MEO}(q,H)=
+argmin_{Xsubseteq E_Gamma}sum_{ein X}C(e)
+]
 
 subject to
 
-\[
-\mathcal O_q(H)
-\subseteq
-\bigcup_{e\in X}S_e.
-\]
+[
+mathcal O_q(H)subseteqigcup_{ein X}S_e.
+]
 
-The exact finite implementation in this repository searches this obligation exhaustively. It is a semantic reference engine, not yet a scalable optimizer.
+The reference implementation provides exact fixed search for small finite instances, exact adaptive worst-case planning, and a greedy weighted-cover planner.
 
-## Native query-result trichotomy
+## Main formal results
 
-An EOD query returns one of three semantic outcomes:
+| Result | Statement |
+|---|---|
+| Capability separation | Same current query view need not imply the same future answerability. |
+| Strict adaptivity gap | A finite witness has (C^*_{m fix}=3) and (C^*_{m ad}=2). |
+| EOD-MEO NP-completeness | Minimum fixed evidence obligation is NP-complete even for a restricted binary deterministic fragment. |
+| Sensing representation | Finite deterministic adaptive EOD policies translate cost-preservingly to conditional sensing policies. |
+| Access-method translation | Qualitative answerability, costs, and static admissibility can be represented by finite access interfaces. |
+| Coarse-composition impossibility | Status/answer/cost/obstruction-count summaries are insufficient to compose conjunction exactly. |
+| Obligation hypergraph | Fixed sufficient obligations are precisely transversals of the obstruction-separator hypergraph. |
+| Boolean composition | Signed query labels plus query-independent pairwise evidence incidence suffice for exact pointwise Boolean composition. |
 
-| Status | Meaning | Native result |
-|---|---|---|
-| **RESOLVED** | Current evidence already determines the answer | Answer certificate |
-| **ACQUIRABLY_RESOLVABLE** | Ambiguity remains but admissible evidence can remove it | Minimum evidence obligation |
-| **UNRESOLVABLE** | Some answer-disagreeing worlds cannot be separated by any admissible operation | Impossibility certificate |
+These results deliberately narrow the novelty claim. Adaptive sensing, weighted set cover, minimum-cost testing, active information acquisition, possible worlds, provenance, and access-method planning are prior art and are **not** claimed as EOD inventions.
 
-This distinction is stronger than returning a generic unknown value.
+## Database-level contribution under study
 
-## Resolution antiprovenance
+The repository investigates a narrower abstraction:
 
-Traditional provenance is backward-facing:
+> Treat future evidence capability as part of logical database state and make resolution artifacts—obstructions, obligations, policies, and impossibility witnesses—typed query-level objects.
 
-\[
-\text{existing evidence}\rightarrow\text{answer}.
-\]
+This is a semantic/database abstraction claim, not a claim that EOD cannot be encoded using existing database or planning machinery.
 
-EOD adds a forward-facing dual:
+## Algebra
 
-\[
-\text{unresolved query}\rightarrow\text{future evidence sufficient for resolution}.
-\]
-
-This repository calls that object **resolution antiprovenance**.
-
-## What is already known
-
-EOD does **not** claim that the following ideas are new:
-
-- possible-world and incomplete-database semantics;
-- certain answers;
-- query completeness;
-- provenance or why-not provenance;
-- sensor/acquisitional query processing;
-- minimum-cost test selection;
-- experimental design or active information acquisition.
-
-Those areas are explicit prior art.
-
-The current research hypothesis is narrower:
-
-> **A useful database model can make evidence-generating capability part of logical database state, while unresolved queries natively denote resolution obligations or impossibility certificates.**
-
-See [docs/PRIOR_ART.md](docs/PRIOR_ART.md).
-
-## Comparison with established paradigms
-
-| Paradigm | Typical primitive output for incomplete knowledge | What EOD adds |
-|---|---|---|
-| Relational DB | tuples / relations | Prospective resolution semantics |
-| Incomplete DB | possible or certain answers | Future evidence obligations |
-| Probabilistic DB | answer probabilities | Separability without requiring probability |
-| Provenance system | derivation/explanation | Forward resolution antiprovenance |
-| Why-not provenance | explanation for missing output | Evidence sufficient to make target invariant |
-| Acquisitional DB | optimized acquisition/sampling | Acquisition capability as logical DB state |
-| EOD | certificate / obligation / impossibility certificate | Native future-answerability semantics |
-
-This is a **semantic comparison**, not a claim that EOD cannot be encoded on top of a relational DBMS.
-
-## Working reference software
-
-The repository includes a zero-dependency Python reference engine:
-
-```text
-eod/
-  model.py       finite worlds + evidence operations
-  engine.py      obstruction, exact obligation search, certificates
-examples/
-  clinical_demo.py
-benchmarks/
-  compare_models.py
-tests/
-  test_eod.py
-docs/
-  THEORY.md
-  PRIOR_ART.md
-```
-
-Run:
-
-```bash
-python examples/clinical_demo.py
-python benchmarks/compare_models.py
-python -m unittest discover -s tests -v
-```
-
-## Example
-
-Suppose three admissible worlds imply:
-
-| World | Decision | Test A | Test B |
-|---|---|---:|---:|
-| w1 | A | 0 | 0 |
-| w2 | B | 1 | 0 |
-| w3 | B | 1 | 1 |
-
-If Test A costs 2 and Test B costs 1, the target decision is currently ambiguous.
-
-Test B does not separate w1 from w2. Test A separates every pair that disagrees on the decision.
-
-EOD therefore returns conceptually:
-
-```text
-status: ACQUIRABLY_RESOLVABLE
-possible_answers: [A, B]
-minimum_obligation: [Test A]
-minimum_cost: 2
-```
-
-After observing Test A = 1, only worlds w2 and w3 remain and both give answer B:
-
-```text
-status: RESOLVED
-answer: B
-```
-
-If two answer-disagreeing worlds produce the same outcome under every admissible evidence operation, EOD instead returns an impossibility certificate identifying that inseparable pair.
-
-## Why the benchmark matters
-
-The included benchmark is intentionally **not a speed benchmark**. It puts the same finite-world problem through four semantic views:
-
-1. relational-style storage;
-2. possible answers;
-3. certain-answer semantics;
-4. EOD resolution semantics.
-
-Its purpose is to make the proposed benefit concrete: EOD does not merely say that an answer is currently uncertain; it determines whether the uncertainty is **resolvable**, identifies a minimum evidence obligation when it is, and provides a witness when it is not.
-
-## First formal separation result
-
-EOD now has an executable **Capability-Separation Theorem**.
-
-There exist two finite databases \(\mathbb D_+\) and \(\mathbb D_-\) with exactly the same current version space and exactly the same query values on that space, yet
-
-\[
-\operatorname{RS}(\mathbb D_+,q)
-=
-\mathrm{ACQUIRABLY\_RESOLVABLE}
-\]
-
-while
-
-\[
-\operatorname{RS}(\mathbb D_-,q)
-=
-\mathrm{UNRESOLVABLE}.
-\]
-
-The difference is solely their admissible evidence capability. Therefore:
-
-\[
-\boxed{\text{same current knowledge}\;\not\Rightarrow\;\text{same future answerability}}
-\]
-
-This proves that future answerability is not determined by the current query view alone. It does **not** claim that conventional DBMS software cannot encode evidence metadata.
-
-See [docs/SEPARATION_THEOREM.md](docs/SEPARATION_THEOREM.md) and run:
-
-```bash
-python experiments/capability_separation.py
-```
-
-The seven finite-core axioms are in [docs/AXIOMS.md](docs/AXIOMS.md).
-
-## Complexity boundary
-
-For an explicit finite EOD instance, the non-adaptive minimum-evidence problem can be represented as weighted covering over the query-obstruction pairs. The exact engine is therefore intentionally a small-instance semantic oracle rather than a production optimizer.
-
-See [docs/COMPLEXITY.md](docs/COMPLEXITY.md) and:
-
-```bash
-python benchmarks/scaling_exact.py
-```
-
-## EOD algebra and adaptive policies
-
-Version 0.3 adds a typed finite algebra:
+The finite reference algebra includes:
 
 | Operator | Meaning |
 |---|---|
-| `VIEW(D,q)` | current worlds and possible query answers |
-| `OBSTRUCT(D,q)` | query-disagreeing world pairs |
-| `SEPARATE(D,e)` | pairs distinguished by evidence operation \(e\) |
+| `VIEW(D,q)` | current worlds and possible answers |
+| `OBSTRUCT(D,q)` | answer-disagreeing world pairs |
+| `SEPARATE(D,e)` | pairs distinguished by operation (e) |
 | `OBLIGATE(D,q)` | minimum fixed evidence obligation |
-| `ACQUIRE(D,e,o)` | refine state after observed outcome \(o\) |
+| `ACQUIRE(D,e,o)` | refine state after evidence outcome (o) |
 | `CERTIFY(D,q)` | answer, obligation, or impossibility certificate |
 
-The implementation includes regression tests for resolution, obstruction contraction, acquisition idempotence, and commutativity of compatible deterministic observations.
+The package also exposes obligation-hypergraph and signed-composition APIs.
 
-See [docs/ALGEBRA.md](docs/ALGEBRA.md) and run:
+## Empirical evaluation
+
+The formal guarantees belong to the finite deterministic EOD model. The real-data studies are **empirical analogues of progressive evidence acquisition**, not logical resolution proofs.
+
+### Credit-card fraud: controlled feature-budget workload
+
+A 284,807-transaction benchmark uses progressive feature budgets over `Time`, `Amount`, and anonymized PCA components. Because the PCA variables have no acquisition semantics, this workload is explicitly treated as a controlled proxy.
+
+Key findings include:
+
+- PR-AUC rises from 0.0018 at B0 to 0.7438 at B3 and 0.7439 at B4;
+- some high-confidence early decisions reverse after later information;
+- confidence-only and maturity-aware stopping produce different cost-quality frontiers;
+- the trade-off is classifier-dependent;
+- bootstrap analysis and a stopping-rule ablation are included.
+
+See `docs/CREDITCARD_FIRST_RESULTS.md`, `docs/CREDITCARD_STOPPING_RESULTS.md`, and `docs/CREDITCARD_ROBUSTNESS.md`.
+
+### UCI Default of Credit Card Clients: semantic-stage replication
+
+The second workload contains 30,000 clients and interpretable evidence blocks:
+
+[
+	ext{profile/capacity}
+ightarrow
+	ext{repayment status}
+ightarrow
+	ext{bill history}
+ightarrow
+	ext{payment history}.
+]
+
+Repayment evidence supplies the dominant predictive gain, while individual decisions continue to change after aggregate performance largely saturates. Relative to the full final-stage decision, 6.68% of P1 decisions and 5.35% of P2 decisions differ.
+
+The extreme-probability diagnostic from the first dataset does **not** replicate, and that negative result is retained. The cross-dataset message is therefore not a universal confidence threshold; it is the distinction between predictive saturation and decision/evidence maturity.
+
+See `docs/UCI_DEFAULT_RESULTS.md`.
+
+## Reproducibility
+
+Install the finite core:
 
 ```bash
-python examples/algebra_demo.py
+pip install -e .
+python -m unittest discover -s tests -v
 ```
 
-EOD also now supports exact adaptive evidence policies for small finite states. An adaptive policy can stop early on branches where the query becomes resolved rather than acquiring an entire fixed obligation.
-
-See [docs/ADAPTIVE.md](docs/ADAPTIVE.md) and:
+Run representative theorem witnesses and benchmarks:
 
 ```bash
-python experiments/adaptive_advantage.py
-```
-
-## v0.4 — strict adaptivity gap and scalable planning
-
-EOD now has a finite witness where adaptivity gives a **strict worst-case cost advantage**.
-
-For four worlds and three unit-cost binary evidence operations, every fixed resolving obligation requires all three operations:
-
-\[
-C^*_{\mathrm{fix}}=3.
-\]
-
-An adaptive policy first acquires one branching operation and then selects the branch-specific discriminator, guaranteeing resolution in two operations:
-
-\[
-C^*_{\mathrm{ad}}=2.
-\]
-
-Therefore
-
-\[
-\boxed{G(D,q)=C^*_{\mathrm{fix}}/C^*_{\mathrm{ad}}=3/2}.
-\]
-
-See [docs/ADAPTIVITY_GAP.md](docs/ADAPTIVITY_GAP.md) and run:
-
-```bash
+python experiments/capability_separation.py
 python experiments/strict_adaptivity_gap.py
-```
-
-For larger explicit finite states, [eod/greedy.py](eod/greedy.py) implements weighted greedy obstruction cover. Because fixed EOD obligation planning reduces to weighted set cover on the obstruction universe, the classical harmonic approximation guarantee applies:
-
-\[
-C_{\mathrm{greedy}}\le H_{|\mathcal O_q(H)|}C^*.
-\]
-
-This approximation guarantee is inherited from weighted set cover; it is not claimed as a new theorem.
-
-An exhaustive small binary audit is provided in [benchmarks/exhaustive_binary_small.py](benchmarks/exhaustive_binary_small.py), and the publication-grade evaluation roadmap is in [docs/EXPERIMENT_PLAN.md](docs/EXPERIMENT_PLAN.md).
-
-## v0.5 — reproducible evaluation harness
-
-The repository now contains a deterministic multi-configuration benchmark comparing:
-
-- exact fixed obligations;
-- greedy fixed obligations;
-- exact adaptive worst-case policies on small instances;
-- semantic resolvability;
-- obstruction size;
-- algorithm runtime;
-- greedy/exact approximation ratio;
-- fixed/adaptive cost gap.
-
-Run:
-
-```bash
+python experiments/composition_witness.py
+python benchmarks/exhaustive_binary_small.py
 python benchmarks/synthetic_suite.py --seeds 100
-python benchmarks/summarize_results.py artifacts/synthetic_results.csv
 ```
 
-A GitHub Actions workflow runs the full regression suite, exhaustive small audit, synthetic benchmark, and uploads the resulting CSV/summary as reproducibility artifacts.
+GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, and reproducibility artifact generation. The v1.0 pre-freeze tree passed the reproducibility workflow before this README-only release cleanup.
 
-The benchmark protocol is documented in [docs/BENCHMARK_PROTOCOL.md](docs/BENCHMARK_PROTOCOL.md). Publication readiness is tracked explicitly in [docs/Q1_READINESS.md](docs/Q1_READINESS.md).
+## Repository map
 
-## Research questions now made executable
+```text
+eod/                  finite reference implementation
+tests/                theorem and regression tests
+experiments/          executable witnesses
+benchmarks/           exhaustive and synthetic evaluation
+applications/         real-data workload protocols
+artifacts/            frozen machine-readable results
+docs/                 theory, proofs, comparisons, protocols, results
+```
 
-The repository turns the proposal into falsifiable questions:
+Important formal documents include:
 
-1. Can evidence capability be treated as a first-class logical component of DB state?
-2. Can answer certificates, obligations, and impossibility certificates form a closed algebra?
-3. What fragments admit polynomial-time evaluation?
-4. What is the exact expressive relationship to incomplete and acquisitional databases?
-5. When are two databases equivalent with respect to both current answers and future answerability?
-6. How should adaptive, noisy, temporal, and authorization-dependent evidence be represented?
+- `docs/SEPARATION_THEOREM.md`
+- `docs/NP_COMPLETENESS.md`
+- `docs/REPRESENTATION_THEOREM.md`
+- `docs/ACCESS_METHOD_RELATIONSHIP.md`
+- `docs/COARSE_COMPOSITION_IMPOSSIBILITY.md`
+- `docs/HYPERGRAPH_REPRESENTATION.md`
+- `docs/BOOLEAN_COMPOSITION.md`
+- `docs/Q1_READINESS.md`
 
-## Current status
+## Claim boundaries
 
-**v0.5 — theorem-backed EOD model + typed algebra + exact/adaptive/greedy planners + strict adaptivity result + deterministic benchmark suite + CI reproducibility pipeline.**
+EOD does **not** claim to introduce:
 
-This repository establishes the concept and makes it executable. It does **not** yet claim historical proof that EOD is a new canonical database model; that requires a fuller literature review, formal separation results, and peer review.
+- uncertainty or possible-world databases;
+- active sensing or adaptive information acquisition;
+- acquisitional query processing;
+- minimum-cost test selection;
+- weighted set cover or its approximation guarantee;
+- provenance/why-not provenance;
+- access-method answerability;
+- conditional sensing or epistemic planning.
+
+The exact relationship to these areas is part of the formal collision analysis in this repository. Historical novelty remains subject to literature review and peer review.
+
+## Data
+
+Raw third-party datasets are not redistributed. Application folders contain protocols and derived/frozen results only. Users should obtain source datasets from their original providers and follow the applicable terms.
 
 ## Citation
 
-Citation metadata is provided in [CITATION.cff](CITATION.cff).
+Citation metadata is provided in `CITATION.cff`.
 
 ## License
 
-Apache License 2.0.
+Apache License 2.0. See `LICENSE` and `NOTICE`.
 
 Copyright © 2026 Mohammad Amir Khusru Akhtar.
