@@ -1,0 +1,4 @@
+policy,risk_budget,mean_stage_cost,test_disagreement_with_B4,evidence_saving_vs_B4
+always_B4,0.001,4.000000,0.000000,0.000000
+confidence_only,0.001,2.316000,0.000510,0.421000
+maturity_aware_proxy,0.001,2.212000,0.000880,0.447000
