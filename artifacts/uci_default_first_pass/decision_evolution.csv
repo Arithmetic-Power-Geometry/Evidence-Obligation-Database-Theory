@@ -1,0 +1,4 @@
+stage,decision_disagreement_with_P3,mean_absolute_probability_difference_from_P3
+P0,0.361000,0.122437100
+P1,0.066833,0.037025055
+P2,0.053500,0.028137572
