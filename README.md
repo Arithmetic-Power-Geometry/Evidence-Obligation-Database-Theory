@@ -177,6 +177,9 @@ docs/                 theory, proofs, comparisons, protocols, results
 
 Formal documentation includes:
 
+- `docs/CORE_SEMANTICS.md`
+- `docs/AXIOMS.md`
+- `docs/ALGEBRA.md`
 - `docs/SEPARATION_THEOREM.md`
 - `docs/NP_COMPLETENESS.md`
 - `docs/REPRESENTATION_THEOREM.md`
@@ -184,6 +187,8 @@ Formal documentation includes:
 - `docs/COARSE_COMPOSITION_IMPOSSIBILITY.md`
 - `docs/HYPERGRAPH_REPRESENTATION.md`
 - `docs/BOOLEAN_COMPOSITION.md`
+- `docs/FORMAL_RELATIONSHIPS.md`
+- `docs/SCOPE_AND_RELATIONSHIPS.md`
 
 ## Scope and relationship to established methods
 
