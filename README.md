@@ -28,11 +28,11 @@ where \(W\) is the finite set of admissible worlds, \(H\) is acquired evidence, 
 
 For a query \(q:W\to Y\), current evidence induces the version space \(V_H\). EOD distinguishes three typed outcomes:
 
-\`\`\`text
+```text
 RESOLVED              -> answer certificate
 ACQUIRABLY_RESOLVABLE -> evidence obligation / policy
 UNRESOLVABLE          -> impossibility certificate
-\`\`\`
+```
 
 The query-relative obstruction is
 
@@ -95,12 +95,12 @@ This makes it possible to distinguish an answer that is currently unknown but re
 
 | Operator | Meaning |
 |---|---|
-| \`VIEW(D,q)\` | current worlds and possible query answers |
-| \`OBSTRUCT(D,q)\` | query-disagreeing world pairs |
-| \`SEPARATE(D,e)\` | world pairs distinguished by evidence operation \(e\) |
-| \`OBLIGATE(D,q)\` | minimum fixed evidence obligation, if one exists |
-| \`ACQUIRE(D,e,o)\` | refined state after observing outcome \(o\) |
-| \`CERTIFY(D,q)\` | answer, evidence obligation, or impossibility certificate |
+| `VIEW(D,q)` | current worlds and possible query answers |
+| `OBSTRUCT(D,q)` | query-disagreeing world pairs |
+| `SEPARATE(D,e)` | world pairs distinguished by evidence operation \(e\) |
+| `OBLIGATE(D,q)` | minimum fixed evidence obligation, if one exists |
+| `ACQUIRE(D,e,o)` | refined state after observing outcome \(o\) |
+| `CERTIFY(D,q)` | answer, evidence obligation, or impossibility certificate |
 
 The package also exposes obligation-hypergraph and signed-composition APIs.
 
@@ -110,7 +110,7 @@ The formal guarantees belong to the finite deterministic EOD model. The real-dat
 
 ### Credit-card fraud: controlled feature-budget workload
 
-A 284,807-transaction benchmark uses progressive feature budgets over \`Time\`, \`Amount\`, and anonymized PCA components. Because the PCA variables have no acquisition semantics, this workload is treated as a controlled feature-budget proxy.
+A 284,807-transaction benchmark uses progressive feature budgets over `Time`, `Amount`, and anonymized PCA components. Because the PCA variables have no acquisition semantics, this workload is treated as a controlled feature-budget proxy.
 
 Key results include:
 
@@ -120,7 +120,7 @@ Key results include:
 - the trade-off is classifier-dependent;
 - bootstrap analysis and a stopping-rule ablation are included.
 
-See \`docs/CREDITCARD_FIRST_RESULTS.md\`, \`docs/CREDITCARD_STOPPING_RESULTS.md\`, and \`docs/CREDITCARD_ROBUSTNESS.md\`.
+See `docs/CREDITCARD_FIRST_RESULTS.md`, `docs/CREDITCARD_STOPPING_RESULTS.md`, and `docs/CREDITCARD_ROBUSTNESS.md`.
 
 ### UCI Default of Credit Card Clients: semantic-stage replication
 
@@ -140,32 +140,32 @@ Repayment evidence supplies the dominant predictive gain, while individual decis
 
 The extreme-probability diagnostic from the first dataset does not replicate. This negative result is retained. The cross-dataset conclusion is therefore deliberately narrower: confidence thresholds are model- and dataset-specific, while staged evidence can continue to change decisions after aggregate predictive performance has nearly saturated.
 
-See \`docs/UCI_DEFAULT_RESULTS.md\`.
+See `docs/UCI_DEFAULT_RESULTS.md`.
 
 ## Reproducibility
 
 Install the finite core:
 
-\`\`\`bash
+```bash
 pip install -e .
 python -m unittest discover -s tests -v
-\`\`\`
+```
 
 Run representative theorem witnesses and benchmarks:
 
-\`\`\`bash
+```bash
 python experiments/capability_separation.py
 python experiments/strict_adaptivity_gap.py
 python experiments/composition_witness.py
 python benchmarks/exhaustive_binary_small.py
 python benchmarks/synthetic_suite.py --seeds 100
-\`\`\`
+```
 
 GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, summary generation, and reproducibility artifact generation. The v1.0 software release was validated through this workflow.
 
 ## Repository map
 
-\`\`\`text
+```text
 eod/                  finite reference implementation
 tests/                theorem and regression tests
 experiments/          executable witnesses
@@ -173,17 +173,17 @@ benchmarks/           exhaustive and synthetic evaluation
 applications/         real-data workload protocols
 artifacts/            frozen machine-readable results
 docs/                 theory, proofs, comparisons, protocols, results
-\`\`\`
+```
 
 Formal documentation includes:
 
-- \`docs/SEPARATION_THEOREM.md\`
-- \`docs/NP_COMPLETENESS.md\`
-- \`docs/REPRESENTATION_THEOREM.md\`
-- \`docs/ACCESS_METHOD_RELATIONSHIP.md\`
-- \`docs/COARSE_COMPOSITION_IMPOSSIBILITY.md\`
-- \`docs/HYPERGRAPH_REPRESENTATION.md\`
-- \`docs/BOOLEAN_COMPOSITION.md\`
+- `docs/SEPARATION_THEOREM.md`
+- `docs/NP_COMPLETENESS.md`
+- `docs/REPRESENTATION_THEOREM.md`
+- `docs/ACCESS_METHOD_RELATIONSHIP.md`
+- `docs/COARSE_COMPOSITION_IMPOSSIBILITY.md`
+- `docs/HYPERGRAPH_REPRESENTATION.md`
+- `docs/BOOLEAN_COMPOSITION.md`
 
 ## Scope and relationship to established methods
 
@@ -199,10 +199,10 @@ Please cite the archival V1 research release as:
 
 > Akhtar, M. A. K. (2026). *Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.22980041
 
-Machine-readable citation metadata is provided in \`CITATION.cff\`.
+Machine-readable citation metadata is provided in `CITATION.cff`.
 
 ## License
 
-Apache License 2.0. See \`LICENSE\` and \`NOTICE\`.
+Apache License 2.0. See `LICENSE` and `NOTICE`.
 
 Copyright © 2026 Mohammad Amir Khusru Akhtar.
