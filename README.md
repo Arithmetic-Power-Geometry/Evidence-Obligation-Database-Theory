@@ -336,6 +336,30 @@ This approximation guarantee is inherited from weighted set cover; it is not cla
 
 An exhaustive small binary audit is provided in [benchmarks/exhaustive_binary_small.py](benchmarks/exhaustive_binary_small.py), and the publication-grade evaluation roadmap is in [docs/EXPERIMENT_PLAN.md](docs/EXPERIMENT_PLAN.md).
 
+## v0.5 — reproducible evaluation harness
+
+The repository now contains a deterministic multi-configuration benchmark comparing:
+
+- exact fixed obligations;
+- greedy fixed obligations;
+- exact adaptive worst-case policies on small instances;
+- semantic resolvability;
+- obstruction size;
+- algorithm runtime;
+- greedy/exact approximation ratio;
+- fixed/adaptive cost gap.
+
+Run:
+
+```bash
+python benchmarks/synthetic_suite.py --seeds 100
+python benchmarks/summarize_results.py artifacts/synthetic_results.csv
+```
+
+A GitHub Actions workflow runs the full regression suite, exhaustive small audit, synthetic benchmark, and uploads the resulting CSV/summary as reproducibility artifacts.
+
+The benchmark protocol is documented in [docs/BENCHMARK_PROTOCOL.md](docs/BENCHMARK_PROTOCOL.md). Publication readiness is tracked explicitly in [docs/Q1_READINESS.md](docs/Q1_READINESS.md).
+
 ## Research questions now made executable
 
 The repository turns the proposal into falsifiable questions:
@@ -349,7 +373,7 @@ The repository turns the proposal into falsifiable questions:
 
 ## Current status
 
-**v0.4 — axiomatized theory + capability separation + typed algebra + strict adaptivity-gap result + exact/adaptive/greedy planners + exhaustive-audit and experiment framework.**
+**v0.5 — theorem-backed EOD model + typed algebra + exact/adaptive/greedy planners + strict adaptivity result + deterministic benchmark suite + CI reproducibility pipeline.**
 
 This repository establishes the concept and makes it executable. It does **not** yet claim historical proof that EOD is a new canonical database model; that requires a fuller literature review, formal separation results, and peer review.
 
