@@ -298,6 +298,44 @@ See [docs/ADAPTIVE.md](docs/ADAPTIVE.md) and:
 python experiments/adaptive_advantage.py
 ```
 
+## v0.4 — strict adaptivity gap and scalable planning
+
+EOD now has a finite witness where adaptivity gives a **strict worst-case cost advantage**.
+
+For four worlds and three unit-cost binary evidence operations, every fixed resolving obligation requires all three operations:
+
+\[
+C^*_{\mathrm{fix}}=3.
+\]
+
+An adaptive policy first acquires one branching operation and then selects the branch-specific discriminator, guaranteeing resolution in two operations:
+
+\[
+C^*_{\mathrm{ad}}=2.
+\]
+
+Therefore
+
+\[
+\boxed{G(D,q)=C^*_{\mathrm{fix}}/C^*_{\mathrm{ad}}=3/2}.
+\]
+
+See [docs/ADAPTIVITY_GAP.md](docs/ADAPTIVITY_GAP.md) and run:
+
+```bash
+python experiments/strict_adaptivity_gap.py
+```
+
+For larger explicit finite states, [eod/greedy.py](eod/greedy.py) implements weighted greedy obstruction cover. Because fixed EOD obligation planning reduces to weighted set cover on the obstruction universe, the classical harmonic approximation guarantee applies:
+
+\[
+C_{\mathrm{greedy}}\le H_{|\mathcal O_q(H)|}C^*.
+\]
+
+This approximation guarantee is inherited from weighted set cover; it is not claimed as a new theorem.
+
+An exhaustive small binary audit is provided in [benchmarks/exhaustive_binary_small.py](benchmarks/exhaustive_binary_small.py), and the publication-grade evaluation roadmap is in [docs/EXPERIMENT_PLAN.md](docs/EXPERIMENT_PLAN.md).
+
 ## Research questions now made executable
 
 The repository turns the proposal into falsifiable questions:
@@ -311,7 +349,7 @@ The repository turns the proposal into falsifiable questions:
 
 ## Current status
 
-**v0.3 — axiomatized theory + capability-separation theorem + typed EOD algebra + exact fixed and adaptive resolution engines + semantic/complexity benchmarks.**
+**v0.4 — axiomatized theory + capability separation + typed algebra + strict adaptivity-gap result + exact/adaptive/greedy planners + exhaustive-audit and experiment framework.**
 
 This repository establishes the concept and makes it executable. It does **not** yet claim historical proof that EOD is a new canonical database model; that requires a fuller literature review, formal separation results, and peer review.
 
