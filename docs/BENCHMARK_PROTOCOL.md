@@ -1,4 +1,4 @@
-# EOD v0.5 Benchmark Protocol
+# EOD Benchmark Protocol
 
 ## Objective
 
