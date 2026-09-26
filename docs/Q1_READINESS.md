@@ -23,10 +23,10 @@ This is an internal research-quality checklist, not a journal-ranking claim.
 
 - [ ] CI benchmark results inspected and frozen into a tagged release.
 - [ ] Larger scaling study with confidence intervals across instance families.
-- [ ] At least one realistic public-data workload.
+- [~] Realistic public-data workload scaffolded on IEEE-CIS; execution/results still required.
 - [ ] Strong implementation baselines appropriate to that workload.
 - [ ] Ablation study.
-- [ ] Expanded systematic prior-art audit of access-limited query answering, acquisitional DBs, epistemic planning/sensing, active information acquisition, and provenance.
+- [~] Closest-neighbor matrix added; access-method answerability and epistemic planning identified as highest-risk formal collisions; deeper proof-level comparison still required.
 - [ ] Stronger formal relationship theorem: embedding, equivalence, or separation against the closest established formalism.
 - [ ] Independent reproducibility run from a clean release.
 - [ ] Figures/tables generated from frozen artifacts.
