@@ -27,13 +27,13 @@ This is an internal research-quality checklist, not a journal-ranking claim.
 - [ ] Strong implementation baselines appropriate to that workload.
 - [ ] Ablation study.
 - [~] Closest-neighbor matrix added; access-method answerability and epistemic planning identified as highest-risk formal collisions; deeper proof-level comparison still required.
-- [ ] Stronger formal relationship theorem: embedding, equivalence, or separation against the closest established formalism.
+- [x] Exact finite representation theorem against conditional sensing: deterministic adaptive EOD policies correspond cost-preservingly to sensing policies. This narrows the novelty claim; access-method translation remains open.
 - [ ] Independent reproducibility run from a clean release.
 - [ ] Figures/tables generated from frozen artifacts.
 
 ## Current assessment
 
-The project has crossed from a conceptual proposal into a theorem-backed executable research prototype.
+The project has crossed from a conceptual proposal into a theorem-backed executable research prototype, and its adaptive finite fragment now has an explicit representation relationship to established sensing/planning machinery.
 
 It is **not yet appropriate to label it Q1-ready** because the application evidence, baseline evaluation, and closest-formalism comparison are not complete.
 
