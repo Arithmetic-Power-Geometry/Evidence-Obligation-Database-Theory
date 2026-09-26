@@ -1,0 +1,30 @@
+name: EOD reproducibility
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test-and-benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install package
+        run: python -m pip install -e .
+      - name: Run regression tests
+        run: python -m unittest discover -s tests -v
+      - name: Run exhaustive small audit
+        run: python benchmarks/exhaustive_binary_small.py
+      - name: Run synthetic suite
+        run: python benchmarks/synthetic_suite.py --seeds 100
+      - name: Summarize results
+        run: python benchmarks/summarize_results.py artifacts/synthetic_results.csv | tee artifacts/synthetic_summary.txt
+      - name: Upload reproducibility artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: eod-v05-results
+          path: artifacts/
