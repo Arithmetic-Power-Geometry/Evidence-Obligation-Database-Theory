@@ -2,6 +2,8 @@
 
 **Research release:** *Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query*
 
+**Research release:** *Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query*
+
 > A finite database semantics in which state records not only current evidence, but also the evidence that can still be acquired to resolve a query.
 
 **Version:** 1.0.0  
