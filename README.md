@@ -1,5 +1,7 @@
 # Evidence-Obligation Database Theory (EOD)
 
+**Research release:** *Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query*
+
 > A finite database semantics in which state records not only current evidence, but also the evidence that can still be acquired to resolve a query.
 
 **Version:** 1.0.0  
@@ -64,15 +66,15 @@ The reference implementation provides exact fixed search for small finite instan
 | Obligation hypergraph | Fixed sufficient obligations are precisely transversals of the obstruction-separator hypergraph. |
 | Boolean composition | Signed query labels plus query-independent pairwise evidence incidence suffice for exact pointwise Boolean composition. |
 
-These results deliberately narrow the novelty claim. Adaptive sensing, weighted set cover, minimum-cost testing, active information acquisition, possible worlds, provenance, and access-method planning are prior art and are **not** claimed as EOD inventions.
+The formal scope is deliberately narrow. EOD combines a database-native resolution semantics with established structures from sensing, covering, possible-world reasoning, provenance, and access-limited information acquisition. Its distinctive object of study is the resolution status of a query relative to both acquired evidence and the evidence operations that remain available.
 
-## Database-level contribution under study
+## Database-level contribution
 
-The repository investigates a narrower abstraction:
+The central abstraction is:
 
 > Treat future evidence capability as part of logical database state and make resolution artifacts—obstructions, obligations, policies, and impossibility witnesses—typed query-level objects.
 
-This is a semantic/database abstraction claim, not a claim that EOD cannot be encoded using existing database or planning machinery.
+The abstraction is semantic and algebraic: it specifies what an unresolved query should return and how the resulting resolution objects can be represented, optimized, certified, and composed.
 
 ## Algebra
 
@@ -146,7 +148,7 @@ python benchmarks/exhaustive_binary_small.py
 python benchmarks/synthetic_suite.py --seeds 100
 ```
 
-GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, and reproducibility artifact generation. The final v1.0 README commit passed the reproducibility workflow (run #55), including regression tests, exhaustive finite audit, the 100-seed synthetic suite, summary generation, and artifact upload.
+GitHub Actions runs the regression suite, exhaustive finite audit, synthetic benchmark, and reproducibility artifact generation. The v1.0 software release was validated through this workflow, including regression tests, the exhaustive finite audit, the 100-seed synthetic suite, summary generation, and artifact upload.
 
 ## Repository map
 
@@ -169,22 +171,10 @@ Important formal documents include:
 - `docs/COARSE_COMPOSITION_IMPOSSIBILITY.md`
 - `docs/HYPERGRAPH_REPRESENTATION.md`
 - `docs/BOOLEAN_COMPOSITION.md`
-- `docs/Q1_READINESS.md`
 
-## Claim boundaries
+## Scope and relationship to established methods
 
-EOD does **not** claim to introduce:
-
-- uncertainty or possible-world databases;
-- active sensing or adaptive information acquisition;
-- acquisitional query processing;
-- minimum-cost test selection;
-- weighted set cover or its approximation guarantee;
-- provenance/why-not provenance;
-- access-method answerability;
-- conditional sensing or epistemic planning.
-
-The exact relationship to these areas is part of the formal collision analysis in this repository. Historical novelty remains subject to literature review and peer review.
+EOD is designed as a database-level resolution semantics rather than a replacement for possible-world databases, provenance, acquisitional query processing, access-method answerability, active sensing, minimum-cost testing, weighted covering, or conditional sensing. The repository includes explicit correspondences and boundary results so that the EOD objects can be interpreted relative to these established formalisms.
 
 ## Data
 
@@ -192,7 +182,11 @@ Raw third-party datasets are not redistributed. Application folders contain prot
 
 ## Citation
 
-Citation metadata is provided in `CITATION.cff`.
+Please cite the archival V1 research release as:
+
+> Akhtar, M. A. K. (2026). *Evidence-Obligation Database Theory: What Must Be Learned to Resolve an Unknown Query* (Version V1). Zenodo. https://doi.org/10.5281/zenodo.22980041
+
+Machine-readable citation metadata is provided in `CITATION.cff`.
 
 ## License
 
