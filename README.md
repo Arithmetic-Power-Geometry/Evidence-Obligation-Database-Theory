@@ -269,6 +269,35 @@ See [docs/COMPLEXITY.md](docs/COMPLEXITY.md) and:
 python benchmarks/scaling_exact.py
 ```
 
+## EOD algebra and adaptive policies
+
+Version 0.3 adds a typed finite algebra:
+
+| Operator | Meaning |
+|---|---|
+| `VIEW(D,q)` | current worlds and possible query answers |
+| `OBSTRUCT(D,q)` | query-disagreeing world pairs |
+| `SEPARATE(D,e)` | pairs distinguished by evidence operation \(e\) |
+| `OBLIGATE(D,q)` | minimum fixed evidence obligation |
+| `ACQUIRE(D,e,o)` | refine state after observed outcome \(o\) |
+| `CERTIFY(D,q)` | answer, obligation, or impossibility certificate |
+
+The implementation includes regression tests for resolution, obstruction contraction, acquisition idempotence, and commutativity of compatible deterministic observations.
+
+See [docs/ALGEBRA.md](docs/ALGEBRA.md) and run:
+
+```bash
+python examples/algebra_demo.py
+```
+
+EOD also now supports exact adaptive evidence policies for small finite states. An adaptive policy can stop early on branches where the query becomes resolved rather than acquiring an entire fixed obligation.
+
+See [docs/ADAPTIVE.md](docs/ADAPTIVE.md) and:
+
+```bash
+python experiments/adaptive_advantage.py
+```
+
 ## Research questions now made executable
 
 The repository turns the proposal into falsifiable questions:
@@ -282,7 +311,7 @@ The repository turns the proposal into falsifiable questions:
 
 ## Current status
 
-**v0.2 — axiomatized finite theory + capability-separation theorem + exact reference engine + semantic and complexity benchmarks.**
+**v0.3 — axiomatized theory + capability-separation theorem + typed EOD algebra + exact fixed and adaptive resolution engines + semantic/complexity benchmarks.**
 
 This repository establishes the concept and makes it executable. It does **not** yet claim historical proof that EOD is a new canonical database model; that requires a fuller literature review, formal separation results, and peer review.
 
