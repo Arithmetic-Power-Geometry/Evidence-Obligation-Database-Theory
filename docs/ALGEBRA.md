@@ -1,4 +1,4 @@
-# EOD Algebra v0.3
+# EOD Algebra
 
 The finite deterministic EOD algebra separates **current knowledge**, **resolution obstruction**, **evidence capability**, **future obligation**, **state transition**, and **certification**.
 
